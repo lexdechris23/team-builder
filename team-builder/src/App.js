@@ -1,23 +1,80 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+import Form from './components/Form';
+import axios from 'axios';
 
-function App() {
+
+
+
+const App = () => {
+
+  const initialFormValues = {
+    name: '',
+    email: '',
+    role: '',
+  }
+
+  const [teamMember, setTeamMember] = useState([]);
+
+  const [formValues, setFormValues] = useState(initialFormValues)
+
+  const updateForm = (inputName, inputValue) => {
+    setFormValues ({...formValues, [inputName]: inputValue})
+  }
+
+  const submitForms = () => {
+
+    const newTeamMember = {
+      name: formValues.name.trim(),
+      email: formValues.email.trim(),
+      role: formValues.role.trim()
+    }
+
+    if(!newTeamMember.name || !newTeamMember.email || !newTeamMember.role)
+      return
+
+
+    // axios
+    // .post('fakeapi.com', newTeamMember)
+    // .then((res) => {
+    setTeamMember([...teamMember, newTeamMember]);
+    setFormValues([initialFormValues]);
+    // .catch((err) => {
+    //   console.log(err);
+
+  };
+
+  // useEffect(() => {
+  //   axios
+  //   .get('fakeapi.com')
+  //   .then((res) => setTeamMember(res.data))
+  //   .catch((err) =>{
+  //     console.log(err);
+  //   })
+  //   }, []);
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h2>Team Members</h2>
+        <Form 
+        formValues={formValues}
+        update={updateForm}
+        submit={submitForms}
+        />
+
+        {teamMember.map((member) => {
+          return (
+            <div>
+                  <h2>{member.name}</h2>
+                  <h3>Email: {member.email}</h3>
+                  <h4>Role: {member.role}</h4>
+                  </div>
+          )
+
+        })}
+
     </div>
   );
 }
