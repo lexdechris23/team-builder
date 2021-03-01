@@ -1,7 +1,7 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from './components/Form';
-import axios from 'axios';
+
 
 
 
@@ -33,25 +33,9 @@ const App = () => {
     if(!newTeamMember.name || !newTeamMember.email || !newTeamMember.role)
       return
 
-
-    // axios
-    // .post('fakeapi.com', newTeamMember)
-    // .then((res) => {
     setTeamMember([...teamMember, newTeamMember]);
     setFormValues([initialFormValues]);
-    // .catch((err) => {
-    //   console.log(err);
-
-  };
-
-  // useEffect(() => {
-  //   axios
-  //   .get('fakeapi.com')
-  //   .then((res) => setTeamMember(res.data))
-  //   .catch((err) =>{
-  //     console.log(err);
-  //   })
-  //   }, []);
+     };
 
 
 
